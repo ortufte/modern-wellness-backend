@@ -1,31 +1,31 @@
-class UsersController < ApplicationController
+class Api::V1::UsersController < ApplicationController
 
     before_action :set_user
 
     def index
         users = User.all 
-        return json: users
+        render json: users
     end
 
     def show
-        return json: @user
+        render json: @user
     end
 
 
     def create
         user = User.new(user_params)
         if user.save
-            return json: user
+            render json: user
         else
-            return json: {error: "User could not be created"}
+            render json: {error: "User could not be created"}
         end
     end
 
     def update
         if @user.update
-            return json: @user
+            render json: @user
         else
-            return json: {error: "User could not be updated"}
+            render json: {error: "User could not be updated"}
         end
     end
 
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     private
 
     def set_user
-        @user = User.find(params[:id])
+        @user = User.find_by(params[:id])
     end
 
     def user_params
