@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_15_202643) do
+ActiveRecord::Schema.define(version: 2020_10_19_194555) do
+
+  create_table "logs", force: :cascade do |t|
+    t.integer "user_id"
+    t.date "date"
+    t.string "medicine"
+    t.integer "symptom_level"
+    t.text "note"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "medicines", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "name"
+    t.string "dosage"
+    t.text "note"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
