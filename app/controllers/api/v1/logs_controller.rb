@@ -7,10 +7,10 @@ class Api::V1::LogsController < ApplicationController
         render json: LogSerializer.new(logs)
     end
 
-    def new
+    def create
         log = @user.logs.build(log_params)
         if log.save
-            render json: LogSerializer.new(log)
+            render json: log
         else
             render json: { error: "Log could not be created" }
         end
@@ -42,7 +42,7 @@ class Api::V1::LogsController < ApplicationController
     end
 
     def log_params
-        params.require(:log).permit(:user_id, :date, :medicine, :symptom_level, :note)
+        params.require(:log).permit(:date, :medicine, :symptom_level, :note, :user_id)
     end
 
 end
