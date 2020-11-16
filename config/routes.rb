@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
       resources :users do 
         resources :logs, only: [:create, :index, :show, :destroy]
-        resources :medicines, only: [:create, :index]
+        resources :medicines, only: [:create, :index, :show, :destroy]
       end
     end
   end

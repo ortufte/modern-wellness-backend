@@ -7,10 +7,10 @@ def index
     render json: MedicineSerializer.new(medicines)
 end
 
-def new
+def create
     medicine = @user.medicines.build(medicine_params)
     if medicine.save
-        render json: MedicineSerializer.new(medicine)
+        render json: medicine
     else
         render json: { error: "Unable to create medicine" }
     end
@@ -30,9 +30,13 @@ def update
     end
 end
 
-def delete
-    medicine = Medicine.find(params[:id])
-    medicine.destory
+def destroy
+    medicine = @user.medicines.find(params[:id])
+    if medicine.destroy
+        render json: medicine
+    else
+        render json: { error: "Medicine could not be destroyed" }
+    end
 end
 
 private
