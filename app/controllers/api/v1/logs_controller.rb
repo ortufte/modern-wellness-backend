@@ -30,9 +30,13 @@ class Api::V1::LogsController < ApplicationController
         end
     end
 
-    def delete
-        log = Log.find(params[:id])
-        log.destroy
+    def destroy
+        log = @user.logs.find(params[:id])
+        if log.destroy
+            render json: log
+        else 
+            render json: { error: "Log could not be destroyed" }
+        end
     end
 
     private
