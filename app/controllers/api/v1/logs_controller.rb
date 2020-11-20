@@ -23,8 +23,8 @@ class Api::V1::LogsController < ApplicationController
 
     def update
         log = Log.find(params[:id])
-        if @log.update
-            render json: LogSerializer.new(log)
+        if log.update(log_params)
+            render json: log
         else
             render json: { error: "Log could not be updated" }
         end

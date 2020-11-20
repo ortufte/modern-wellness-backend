@@ -23,8 +23,8 @@ end
 
 def update
     medicine = Medicine.find(params[:id])
-    if medicine.save
-        render json: MedicineSerializer.new(medicine)
+    if medicine.update(medicine_params)
+        render json: medicine
     else
         render json: { error: "Unable to update medicine" }
     end
