@@ -12,6 +12,16 @@ class Api::V1::SessionsController < ApplicationController
         end
     end
 
+    def get_current_user
+        if logged_in?
+            render json: UserSerializer.new(current_user)
+        else
+            render json: { error: "Not logged in"}
+        end
+
+    end
+
+
     def destroy
         if session.clear
            # byebug #hits byebug so it is clearing - session[:user_id] is nil

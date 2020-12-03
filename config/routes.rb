@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do 
       post '/login', to: 'sessions#create'
       post '/signup', to: 'users#create'
-      get '/get_current_user', to: 'users#show'
+      get '/get_current_user', to: 'sessions#get_current_user'
       delete '/logout', to: 'sessions#destroy'
 
       resources :users do 
