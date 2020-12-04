@@ -7,7 +7,7 @@ class Api::V1::UsersController < ApplicationController
         if user.save
             render json: UserSerializer.new(user)
         else
-            render json: {error: "User could not be created"} 
+            render json: {error: user.errors.full_messages} 
         end
     end
 
@@ -15,7 +15,7 @@ class Api::V1::UsersController < ApplicationController
         if @user
             render json: UserSerializer.new(@user)
         else
-            render json: {error: "User not found"}
+            render json: {error: @user.errors.full_messages}
         end
     end
 
@@ -23,7 +23,7 @@ class Api::V1::UsersController < ApplicationController
         if @user.update(user_params)
             render json: UserSerializer.new(@user)
         else
-            render json: {error: "User could not be updated"}
+            render json: {error: @user.errors.full_messages}
         end
     end
 
