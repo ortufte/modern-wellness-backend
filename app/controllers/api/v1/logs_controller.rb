@@ -2,6 +2,7 @@ class Api::V1::LogsController < ApplicationController
 
     before_action :set_user
 
+    # need????
     def index
         logs = @user.logs
         render json: LogSerializer.new(logs)
@@ -12,10 +13,11 @@ class Api::V1::LogsController < ApplicationController
         if log.save
             render json: log
         else
-            render json: { error: "Log could not be created" }
+            render json: { error: log.errors.full_messages }
         end
     end
 
+    # need????
     def show
         log = Log.find(params[:id])
         render json: LogSerializer.new(log)
@@ -26,7 +28,7 @@ class Api::V1::LogsController < ApplicationController
         if log.update(log_params)
             render json: log
         else
-            render json: { error: "Log could not be updated" }
+            render json: { error: log.errors.full_messages }
         end
     end
 
@@ -35,7 +37,7 @@ class Api::V1::LogsController < ApplicationController
         if log.destroy
             render json: log
         else 
-            render json: { error: "Log could not be destroyed" }
+            render json: { error: log.errors.full_messages }
         end
     end
 
