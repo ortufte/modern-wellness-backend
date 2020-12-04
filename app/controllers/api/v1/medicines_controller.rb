@@ -2,6 +2,7 @@ class Api::V1::MedicinesController < ApplicationController
 
 before_action :set_user
 
+# need???
 def index
     medicines = @user.medicines
     render json: MedicineSerializer.new(medicines)
@@ -12,13 +13,19 @@ def create
     if medicine.save
         render json: medicine
     else
-        render json: { error: "Unable to create medicine" }
+        render json: { error: medicine.errors.full_messages }
     end
 end
 
+
+# need???
 def show
     medicine = Medicine.find(params[:id])
-    render json: MedicineSerializer.new(medicine)
+    if medicine
+        render json: MedicineSerializer.new(medicine)
+    else
+        render json: { error: medicine.errors.full_messages }
+    end
 end
 
 def update
@@ -26,7 +33,7 @@ def update
     if medicine.update(medicine_params)
         render json: medicine
     else
-        render json: { error: "Unable to update medicine" }
+        render json: { error: medicine.errors.full_messages }
     end
 end
 
@@ -35,7 +42,7 @@ def destroy
     if medicine.destroy
         render json: medicine
     else
-        render json: { error: "Medicine could not be destroyed" }
+        render json: { error: medicine.errors.full_messages }
     end
 end
 
