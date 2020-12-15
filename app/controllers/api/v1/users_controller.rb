@@ -1,6 +1,6 @@
 class Api::V1::UsersController < ApplicationController
 
-    before_action :set_user, only: [:show, :update, :destroy]
+    before_action :set_user, only: [:show, :destroy]
 
     def create
         user = User.new(user_params)
@@ -20,10 +20,12 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def update
-        if @user.update(user_params)
-            render json: UserSerializer.new(@user)
+        user = User.find(params[:user][:user_id])
+        if user.update(user_params)
+       
+            render json: UserSerializer.new(user)
         else
-            render json: {error: @user.errors.full_messages}
+            render json: {error: user.errors.full_messages}
         end
     end
 
